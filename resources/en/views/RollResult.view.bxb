@@ -1,0 +1,49 @@
+result-view {
+  match {
+    RollResultConcept (rollResult) {
+      from-output: RollDice (rollOutput)
+    }
+  }
+  
+  message {
+    // customize dialog if rolling only one die
+    if (rollOutput.numDice == 1) {
+      template ("You've got a ${value(rollResult.roll)}!!!")    
+    }
+    // choose a custom message if rolling 2-9 dice
+    if ((rollOutput.numDice > 1)&& (rollOutput.numDice <= 10)) {
+      choose (Random) {
+        template ("The sum is ${value(rollResult.sum)}")
+        template ("You rolled ${list(rollResult.roll, 'value')}")    
+      }
+    }
+    // choose a custom message if rolling more than 10 dice
+    if(rollOutput.numDice > 10) {
+      choose (Random) {
+        template ("Woah! High roller!")
+        template ("${value(rollOutput.numDice)} dice?! You were made for Vegas!")    
+      }
+    }
+  }
+  
+  render {
+    layout {
+      section {
+        content {
+          single-line {
+            text {
+              style (Detail_M)
+              value ("Sum: #{value(rollResult.sum)}")
+            }
+          }
+          single-line {
+            text {
+              style (Detail_M)
+              value ("Rolls: #{value(rollResult.roll)}")
+            }
+          }
+        }
+      }
+    }
+  }
+}

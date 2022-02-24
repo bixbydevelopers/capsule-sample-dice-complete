@@ -1,0 +1,4 @@
+train (t-53imduprll45v6jjp0pfgbusy) {
+  utterance ("[g:RollResultConcept] Roll (2)[v:NumDiceConcept] (6)[v:NumSidesConcept]-sided dice")
+  last-modified (1645723684094)
+}
